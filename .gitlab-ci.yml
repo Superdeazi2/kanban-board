@@ -1,0 +1,11 @@
+create-pages:
+  image: node:22-alpine
+  before_script:
+    - npm ci
+  script:
+    - npm run lint
+    - npm run build -- --mode gitlab
+  pages:
+    publish: dist
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
