@@ -551,11 +551,39 @@ textarea:focus-visible {
 
 .page-footer {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
   padding: 18px 2px 0;
   color: #8b94a4;
   font-size: 0.73rem;
+}
+
+.page-footer__stack,
+.page-footer__portfolio {
+  opacity: 0.58;
+}
+
+.page-footer__portfolio {
+  color: inherit;
+  font-weight: 650;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color 150ms ease,
+    opacity 150ms ease;
+}
+
+.page-footer__portfolio:hover,
+.page-footer__portfolio:focus-visible {
+  color: #2563eb;
+  opacity: 1;
+}
+
+.page-footer__portfolio:focus-visible {
+  outline: 2px solid rgba(37, 99, 235, 0.28);
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 .modal-backdrop {
@@ -733,8 +761,10 @@ textarea:focus-visible {
   }
 
   .page-footer {
-    flex-direction: column;
-    gap: 4px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
   }
 }
 

@@ -396,7 +396,15 @@ function App() {
       </main>
 
       <footer className="page-footer">
-        <span>React · TypeScript · dnd-kit</span>
+        <span className="page-footer__stack">React · TypeScript · dnd-kit</span>
+        <a
+          className="page-footer__portfolio"
+          href="https://deazi-c87e25.gitlab.io/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Портфолио ↗
+        </a>
       </footer>
 
       <TaskModal
