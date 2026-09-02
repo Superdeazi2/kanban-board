@@ -22,7 +22,7 @@
 
 ## Стек
 
-React, TypeScript, Vite, dnd-kit, CSS, localStorage.
+React, TypeScript, Vite, Tailwind CSS, dnd-kit, localStorage.
 
 ## Локальный запуск
 

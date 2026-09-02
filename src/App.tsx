@@ -276,136 +276,157 @@ function App() {
   }
 
   return (
-    <div className="app-shell">
-      <header className="page-header">
-        <div className="page-header__copy">
-          <p className="page-header__eyebrow">Канбан-доска</p>
-          <h1>Задачи под рукой</h1>
-          <p className="page-header__lede">
-            Простая доска для задач: быстро раскидать, что нужно сделать,
-            что уже в работе и что готово.
-          </p>
-        </div>
-
-        <div className="page-header__summary">
-          <div className="summary-stat">
-            <span>Всего</span>
-            <strong>{totalTasks}</strong>
+    <div className="min-h-screen bg-slate-100 text-slate-800">
+      <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <header className="mb-5 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <p className="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">
+              Канбан-доска
+            </p>
+            <h1 className="mb-2 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+              Задачи под рукой
+            </h1>
+            <p className="text-sm leading-6 text-slate-600 sm:text-base">
+              Простая доска для задач: быстро раскидать, что нужно сделать,
+              что уже в работе и что готово.
+            </p>
           </div>
-          <div className="summary-stat">
-            <span>Готово</span>
-            <strong>{doneTasks}</strong>
-          </div>
-          <button
-            className="button button--primary"
-            type="button"
-            onClick={() => openCreate('backlog')}
-          >
-            Новая задача
-          </button>
-        </div>
-      </header>
 
-      <main>
-        <section className="toolbar" aria-label="Управление доской">
-          <label className="search-control">
-            <span className="search-control__label">Поиск</span>
-            <input
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Найти задачу"
-              aria-label="Найти задачу"
-            />
-          </label>
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="border-r border-slate-200 pr-4">
+              <span className="block text-xs font-semibold text-slate-500">
+                Всего
+              </span>
+              <strong className="text-lg text-slate-800">{totalTasks}</strong>
+            </div>
 
-          <div className="toolbar__right">
-            <label className="select-control">
-              <span>Приоритет</span>
-              <select
-                value={priority}
-                onChange={(event) =>
-                  setPriority(event.target.value as 'all' | TaskPriority)
-                }
-                aria-label="Фильтр по приоритету"
-              >
-                <option value="all">Все</option>
-                <option value="high">Высокий</option>
-                <option value="medium">Средний</option>
-                <option value="low">Низкий</option>
-              </select>
-            </label>
-
-            {filtersActive ? (
-              <button
-                className="button button--quiet"
-                type="button"
-                onClick={() => {
-                  setQuery('')
-                  setPriority('all')
-                }}
-              >
-                Сбросить фильтры
-              </button>
-            ) : null}
+            <div className="border-r border-slate-200 pr-4">
+              <span className="block text-xs font-semibold text-slate-500">
+                Готово
+              </span>
+              <strong className="text-lg text-slate-800">{doneTasks}</strong>
+            </div>
 
             <button
-              className="button button--ghost"
+              className="min-h-10 rounded-lg bg-indigo-600 px-4 text-sm font-semibold text-white transition duration-150 hover:-translate-y-0.5 hover:bg-indigo-700 hover:shadow-md active:translate-y-0 active:scale-95 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               type="button"
-              onClick={() => setResetOpen(true)}
+              onClick={() => openCreate('backlog')}
             >
-              Вернуть демо
+              Новая задача
             </button>
           </div>
-        </section>
+        </header>
 
-        <div className="board-meta">
-          <span>
-            {filtersActive
-              ? `Показано ${visibleTasks} из ${totalTasks}`
-              : `Готово ${doneTasks} из ${totalTasks}`}
-          </span>
-          <span>Изменения сохраняются в браузере.</span>
-        </div>
-
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCorners}
-          onDragStart={handleDragStart}
-          onDragOver={handleDragOver}
-          onDragEnd={handleDragEnd}
-          onDragCancel={handleDragCancel}
-        >
-          <div className="board-grid">
-            {TASK_STATUSES.map((status) => (
-              <BoardColumn
-                key={status}
-                status={status}
-                tasks={filteredBoard[status]}
-                totalCount={board[status].length}
-                onAdd={openCreate}
-                onEdit={openEdit}
-                onDelete={setPendingDelete}
+        <main>
+          <section
+            className="flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-3 shadow-sm md:flex-row md:items-end md:justify-between"
+            aria-label="Управление доской"
+          >
+            <label className="w-full max-w-md">
+              <span className="mb-1 block text-xs font-semibold text-slate-600">
+                Поиск
+              </span>
+              <input
+                className="min-h-10 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Найти задачу"
+                aria-label="Найти задачу"
               />
-            ))}
+            </label>
+
+            <div className="flex flex-wrap items-end gap-2">
+              <label>
+                <span className="mb-1 block text-xs font-semibold text-slate-600">
+                  Приоритет
+                </span>
+                <select
+                  className="min-h-10 rounded-lg border border-slate-200 bg-white px-3 text-sm outline-none transition focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100"
+                  value={priority}
+                  onChange={(event) =>
+                    setPriority(event.target.value as 'all' | TaskPriority)
+                  }
+                  aria-label="Фильтр по приоритету"
+                >
+                  <option value="all">Все</option>
+                  <option value="high">Высокий</option>
+                  <option value="medium">Средний</option>
+                  <option value="low">Низкий</option>
+                </select>
+              </label>
+
+              {filtersActive ? (
+                <button
+                  className="min-h-10 rounded-lg border border-slate-200 bg-white px-3 text-sm font-medium text-slate-600 transition duration-150 hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-sm active:translate-y-0 active:scale-95"
+                  type="button"
+                  onClick={() => {
+                    setQuery('')
+                    setPriority('all')
+                  }}
+                >
+                  Сбросить фильтры
+                </button>
+              ) : null}
+
+              <button
+                className="min-h-10 rounded-lg border border-slate-200 bg-white px-3 text-sm font-medium text-slate-600 transition duration-150 hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-sm active:translate-y-0 active:scale-95"
+                type="button"
+                onClick={() => setResetOpen(true)}
+              >
+                Вернуть демо
+              </button>
+            </div>
+          </section>
+
+          <div className="flex flex-col gap-1 px-1 py-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+            <span>
+              {filtersActive
+                ? `Показано ${visibleTasks} из ${totalTasks}`
+                : `Готово ${doneTasks} из ${totalTasks}`}
+            </span>
+            <span>Изменения сохраняются в браузере.</span>
           </div>
 
-          <DragOverlay dropAnimation={{ duration: 180, easing: 'ease' }}>
-            {activeTask ? <TaskGhost task={activeTask} /> : null}
-          </DragOverlay>
-        </DndContext>
-      </main>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCorners}
+            onDragStart={handleDragStart}
+            onDragOver={handleDragOver}
+            onDragEnd={handleDragEnd}
+            onDragCancel={handleDragCancel}
+          >
+            <div className="grid gap-4 lg:grid-cols-3">
+              {TASK_STATUSES.map((status) => (
+                <BoardColumn
+                  key={status}
+                  status={status}
+                  tasks={filteredBoard[status]}
+                  totalCount={board[status].length}
+                  onAdd={openCreate}
+                  onEdit={openEdit}
+                  onDelete={setPendingDelete}
+                />
+              ))}
+            </div>
 
-      <footer className="page-footer">
-        <span className="page-footer__stack">React · TypeScript · dnd-kit</span>
-        <a
-          className="page-footer__portfolio"
-          href="https://deazi-c87e25.gitlab.io/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Портфолио ↗
-        </a>
-      </footer>
+            <DragOverlay dropAnimation={{ duration: 180, easing: 'ease' }}>
+              {activeTask ? <TaskGhost task={activeTask} /> : null}
+            </DragOverlay>
+          </DndContext>
+        </main>
+
+        <footer className="flex items-center justify-between gap-4 px-1 pt-5 text-xs text-slate-400">
+          <span>React · TypeScript · Tailwind CSS · dnd-kit</span>
+          <a
+            className="font-medium text-slate-400 transition duration-150 hover:text-indigo-600 active:scale-95"
+            href="https://deazi-c87e25.gitlab.io/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Портфолио
+          </a>
+        </footer>
+      </div>
 
       <TaskModal
         open={modal.open}

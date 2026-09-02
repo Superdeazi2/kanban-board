@@ -1,9 +1,8 @@
-import { defineConfig } from 'vite'
+import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
 
 export default defineConfig(({ mode }) => ({
-  plugins: [react()],
-  // Relative assets work both on the classic project path and on
-  // GitLab's default unique Pages domain after its redirect.
+  plugins: [react(), tailwindcss()],
   base: mode === 'gitlab' ? './' : '/',
 }))
