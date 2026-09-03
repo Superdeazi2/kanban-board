@@ -2,7 +2,7 @@
 
 Минималистичная доска для задач с удобным drag and drop на компьютере и телефоне.
 
-**[Открыть демо](https://deazi.gitlab.io/kanban-board/)** · **[GitHub](https://github.com/Superdeazi2/kanban-board)** · **[GitLab](https://gitlab.com/Deazi/kanban-board)** · **[Скачать ZIP](https://github.com/Superdeazi2/kanban-board/archive/refs/heads/main.zip)**
+**[Открыть демо](https://kanban-board-c8967d.gitlab.io/)** · **[GitHub](https://github.com/Superdeazi2/kanban-board)** · **[GitLab](https://gitlab.com/Deazi/kanban-board)** · **[Скачать ZIP](https://github.com/Superdeazi2/kanban-board/archive/refs/heads/main.zip)**
 
 ![Канбан-доска](docs/screenshots/board.png)
 
